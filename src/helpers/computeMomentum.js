@@ -1,4 +1,4 @@
-import {prop, cond, compose} from 'ramda';
+import {prop, cond, compose, equals} from 'ramda';
 
 import {SHAPES} from '../constants';
 
@@ -35,51 +35,65 @@ const tetrahedronVolumeFormula = r => (Math.pow(r, 3) * Math.sqrt(2)) / 12;
 
 
 const shapeEqualsCube = compose(
-    () => {},
-    //
+    equals(SHAPES.CUBE),
+    propShape
 );
 
 const shapeEqualsSphere = compose(
-    () => {},
-    //
+    equals(SHAPES.SPHERE),
+    propShape
 );
+
 const shapeEqualsTetrahedron = compose(
-    () => {},
-    //
+    equals(SHAPES.TETRAHEDRON),
+    propShape
 );
 
 const calcCubeVolume = compose(
-    () => {},
-    //
+    cubeVolumeFormula,
+    propSize
 );
+
 const calcSphereVolume = compose(
-    () => {},
-    //
+    sphereVolumeFormula,
+    propSize
 );
+
 const calcTetrahedronVolume = compose(
-    () => {},
-    //
+    tetrahedronVolumeFormula,
+    propSize
 );
 
 const calcVolume = cond([
-    [() => {}, () => {}],
-    [() => {}, () => {}]
-    //
+    [shapeEqualsCube, calcCubeVolume],
+    [shapeEqualsSphere, calcSphereVolume],
+    [shapeEqualsTetrahedron, calcTetrahedronVolume]
 ]);
 
 const calcMass = compose(
-    () => {},
-    //
+    massFormula,
+    (x) => {
+        const volume = calcVolume(x);
+        const density = propDensity(x);
+        
+        return {volume, density}
+    }   
 );
 
 const calcVelocity = compose(
-    () => {},
-    //
+    velocityFormula,
+    propHeight
 );
 
 const computeMomentum = compose(
-    () => {},
-    //
+    round,
+    momentumFormula,
+    (x) => {
+        const mass = calcMass(x);
+        const velocity = calcVelocity(x);
+
+        return {velocity, mass}
+    }
 );
 
 

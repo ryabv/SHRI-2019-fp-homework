@@ -19,6 +19,9 @@ const DescriptionList = () => (
 const HocsPlayground = () => {
     const [innerColor, setInnerColor] = useState('blue');
     const [outerColor, setOuterColor] = useState('red');
+    const [counter, setCounter] = useState(0);
+    const [decCounter, setDecCounter] = useState(5);
+    const [angle, setAngle] = useState(0);
 
     return (
         <Fragment>
@@ -29,7 +32,7 @@ const HocsPlayground = () => {
                 <circle fill={innerColor} cx="60" cy="60" r="30"/>
             </svg>
 
-            <div className={styles.buttonList}>
+            <div style={{position: "relative"}} className={styles.buttonList}>
                 <ButtonN1 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>
                     Внешний в синий
                 </ButtonN1>
@@ -38,11 +41,11 @@ const HocsPlayground = () => {
                     Внешний в красный
                 </ButtonN2>
 
-                <ButtonN3 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Четные/нечетные клики</ButtonN3>
+                <ButtonN3 setOuterColor={setOuterColor} setInnerColor={setInnerColor} setCounter={setCounter} counter={counter}>{counter} Четные/нечетные клики</ButtonN3>
+                <div style={{position: "absolute", top: -50 + '%', left: 50 + '%'}}>{decCounter}</div>
+                <ButtonN4 setOuterColor={setOuterColor} setInnerColor={setInnerColor} setDecCounter={setDecCounter} decCounter={decCounter}>Уходящий counter</ButtonN4>
 
-                <ButtonN4 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Уходящий counter</ButtonN4>
-
-                <ButtonN5 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Крутящаяся кнопка</ButtonN5>
+                <ButtonN5 setOuterColor={setOuterColor} setInnerColor={setInnerColor} setAngle={setAngle} angle={angle}>Крутящаяся кнопка</ButtonN5>
             </div>
         </Fragment>
     );

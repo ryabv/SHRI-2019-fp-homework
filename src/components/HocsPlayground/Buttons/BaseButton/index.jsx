@@ -18,12 +18,13 @@ const getButtonClassName = (size, color) => cn(
 const BaseButton = ({
     size = "small",
     color = "default",
+    angle = 0,
     onClick,
     onMouseOn,
     children,
 }) => {
     return (
-        <button onMouseUp={onMouseOn} onClick={onClick} className={getButtonClassName(size, color)}>
+        <button style={{transform: `rotate(${angle}deg)`}} onMouseUp={onMouseOn} onClick={onClick} className={getButtonClassName(size, color)}>
             {children}
         </button>
     );
